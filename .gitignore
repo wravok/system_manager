@@ -1,0 +1,6 @@
+venv/
+*.pyc
+.vscode/
+dat/pwds.json
+trash/
+config.ini
