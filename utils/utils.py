@@ -15,12 +15,12 @@ def clear():
         _ = system('clear')
 
 
-def connect_mongo_db(user, pwd, host):
-    uri = (f'mongodb://{quote_plus(user)}:{quote_plus(pwd)}@{host}')
+def connect_mongo_db(user, pwd, host, database):
+    uri = (f'mongodb+srv://{quote_plus(user)}:{quote_plus(pwd)}@{host}/{database}?retryWrites=true&w=majority')
 
     try:
         mcon = MongoClient(uri)
-        mdb = mcon.pwdmanager
+        mdb = mcon.systemmanager
         return mdb
     except ConnectionFailure:
         return None
@@ -41,6 +41,7 @@ def get_sys_db_params(file):
 
     host = config['DEFAULT']['host']
     user = config[host]['user']
-    pwd = config[host]['password']
+    pwd = config[host]['pwd']
+    database = config[host]['database']
 
-    return {'host': host, 'user': user, 'pwd': pwd}
+    return {'host': host, 'user': user, 'pwd': pwd, 'database': database}
