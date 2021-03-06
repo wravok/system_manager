@@ -107,10 +107,12 @@ def del_system():
 params = get_sys_db_params('config.ini')
 
 # dbpass = input("Enter master password:")
-mdb = connect_mongo_db(params['user'], params['pwd'], params['host'])
+mdb = connect_mongo_db(params['user'], params['pwd'], params['host'], params['database'])
+
 
 while True:
     clear()
+
     systems = systemanager.load_systems_list(mdb)
     option = select_system()
     if option.isdigit() and int(option) < len(systems):
